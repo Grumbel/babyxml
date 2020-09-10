@@ -21,8 +21,12 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules)
 
 include(MaximumWarnings)
 
-add_library(babyxml STATIC src/babyxml.cpp)
+
+add_library(babyxml STATIC
+  src/babyxml.cpp
+  src/reader.cpp)
 target_include_directories(babyxml PUBLIC include/)
+target_include_directories(babyxml PRIVATE src/)
 
 if(BUILD_TESTS)
   add_executable(babyxml_test test/babyxml_test.cpp)

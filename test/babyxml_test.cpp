@@ -11,22 +11,23 @@ int main(int argc, char** argv)
   else
   {
     // BabyXML xml("<strong size='10'>Hello &lt; World&gt; <b>&quot;blabla&quot;</b> Blablub</strong>");
-    BabyXML xml(argv[1]);
+    babyxml::BabyXML xml(argv[1]);
 
-    for(BabyXML::iterator i = xml.begin(); i != xml.end(); ++i)
+    for(auto const& node : xml.get_root())
     {
-      if (i->type == BabyXML::Node::START_TAG)
+      if (node.type == babyxml::NodeType::START_TAG) {
         std::cout << "STARTTAG: ";
-      else if (i->type == BabyXML::Node::END_TAG)
+      } else if (node.type == babyxml::NodeType::END_TAG) {
         std::cout << "ENDTAG: ";
-      else if (i->type == BabyXML::Node::TEXT)
+      } else if (node.type == babyxml::NodeType::TEXT) {
         std::cout << "TEXT: ";
+      }
 
-      std::cout << "'" << i->content << "'";
+      std::cout << "'" << node.content << "'";
 
-      for(std::vector<BabyXML::Attribute>::iterator j = i->attributes.begin(); j != i->attributes.end(); ++j)
+      for(auto const& attrib : node.attributes)
       {
-        std::cout << " " << j->name << "='" << j->value << "'";
+        std::cout << " " << attrib.name << "='" << attrib.value << "'";
       }
 
       std::cout << std::endl;

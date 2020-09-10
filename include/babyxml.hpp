@@ -19,61 +19,56 @@
 #ifndef HEADER_WINDSTILLE_UTIL_BABY_XML_HPP
 #define HEADER_WINDSTILLE_UTIL_BABY_XML_HPP
 
+#include <span>
+#include <string>
 #include <vector>
+
+namespace babyxml {
+
+struct Attribute
+{
+  std::string name = {};
+  std::string value = {};
+};
+
+enum class NodeType
+{
+  NONE,
+  TEXT,
+  START_TAG,
+  END_TAG,
+  ENTITY
+};
+
+struct Node
+{
+  NodeType type = NodeType::NONE;
+  std::string content = {};
+  std::vector<Attribute> attributes = {};
+};
 
 /** Parser for a flat XML-like tag soup, it doesn't support recursive
     structures */
 class BabyXML
 {
 public:
-  struct Attribute
-  {
-    std::string name;
-    std::string value;
-
-    Attribute()
-      : name(),
-        value()
-    {}
-  };
-
-  struct Node
-  {
-    enum Type { NONE, TEXT, START_TAG, END_TAG, ENTITY };
-    typedef std::vector<Attribute> Attributes;
-
-    Type type;
-    std::string content;
-    Attributes attributes;
-
-    Node()
-      : type(NONE),
-        content(),
-        attributes()
-    {}
-
-    Node(Type type_, const std::string& content_ = std::string())
-      : type(type_),
-        content(content_),
-        attributes()
-    {}
-  };
-
-  typedef std::vector<Node> Nodes;
-  typedef Nodes::iterator       iterator;
-  typedef Nodes::const_iterator const_iterator;
-
-  Nodes nodes;
-
   /** Parse the given \a text and construct the nodes from it */
   BabyXML(const std::string& text);
   ~BabyXML();
 
   void add_node(const Node& node);
 
-  iterator begin() { return nodes.begin(); }
-  iterator end()   { return nodes.end(); }
+  std::vector<Node> const& get_root() const { return m_nodes; }
+
+private:
+  std::vector<Node> m_nodes;
+
+public:
+  BabyXML(const BabyXML&) = delete;
+  BabyXML& operator=(const BabyXML&) = delete;
 };
+
+} // namespace babyxml
 
 #endif
 
