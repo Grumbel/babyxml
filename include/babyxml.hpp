@@ -17,7 +17,6 @@
 #ifndef HEADER_BABYXML_BABYXML_HPP
 #define HEADER_BABYXML_BABYXML_HPP
 
-#include <span>
 #include <string>
 #include <string_view>
 #include <vector>
