@@ -21,21 +21,25 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules)
 
 include(MaximumWarnings)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
 add_library(babyxml STATIC
   src/babyxml.cpp
   src/reader.cpp)
 target_include_directories(babyxml PUBLIC include/)
 target_include_directories(babyxml PRIVATE src/)
 target_compile_options(babyxml PRIVATE ${WARNINGS_CXX_FLAGS})
+set_target_properties(babyxml PROPERTIES
+  CXX_STANDARD 20
+  CXX_EXTENSIONS OFF
+  CXX_STANDARD_REQUIRED ON)
 
 if(BUILD_TESTS)
   add_executable(babyxml_test test/babyxml_test.cpp)
   target_link_libraries(babyxml_test PRIVATE babyxml)
   target_compile_options(babyxml_test PRIVATE ${WARNINGS_CXX_FLAGS})
+  set_target_properties(babyxml_test PROPERTIES
+    CXX_STANDARD 20
+    CXX_EXTENSIONS OFF
+    CXX_STANDARD_REQUIRED ON)
 endif()
 
 # EOF #
