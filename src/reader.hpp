@@ -1,5 +1,3 @@
-#ifndef HEADER_READER_HPP
-#define HEADER_READER_HPP
 // babyxml - tiny parser for XML-like dialect
 // Copyright (C) 2009-2020 Ingo Ruhnke <grumbel@gmail.com>
 //
@@ -16,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef HEADER_BABYXML_READER_HPP
+#define HEADER_BABYXML_READER_HPP
 
 #include <string>
 #include <vector>

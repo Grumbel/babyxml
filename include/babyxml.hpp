@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef HEADER_BABYXML_BABYXML_HPP
+#define HEADER_BABYXML_BABYXML_HPP
 
 #include <span>
 #include <string>
