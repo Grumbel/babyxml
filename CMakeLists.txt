@@ -30,10 +30,12 @@ add_library(babyxml STATIC
   src/reader.cpp)
 target_include_directories(babyxml PUBLIC include/)
 target_include_directories(babyxml PRIVATE src/)
+target_compile_options(babyxml PRIVATE ${WARNINGS_CXX_FLAGS})
 
 if(BUILD_TESTS)
   add_executable(babyxml_test test/babyxml_test.cpp)
   target_link_libraries(babyxml_test PRIVATE babyxml)
+  target_compile_options(babyxml_test PRIVATE ${WARNINGS_CXX_FLAGS})
 endif()
 
 # EOF #
