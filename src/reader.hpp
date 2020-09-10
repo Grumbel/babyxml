@@ -13,7 +13,9 @@ namespace babyxml {
 class Reader
 {
 public:
-  Reader(BabyXML& xml_, const std::string& text_);
+  Reader(std::string_view text);
+
+  std::vector<Node> parse();
 
 private:
   void skip_space();
@@ -28,8 +30,8 @@ private:
   void incr_cursor();
 
 private:
-  BabyXML& m_xml;
   std::string m_text;
+  std::vector<Node> m_nodes;
   int m_cursor;
   int m_line_no;
   int m_column_no;

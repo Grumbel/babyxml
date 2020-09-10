@@ -25,21 +25,10 @@
 
 namespace babyxml {
 
-BabyXML::BabyXML(const std::string& text) :
-  m_nodes()
+std::vector<Node> parse(std::string_view text)
 {
-  Reader(*this, text);
-}
-
-BabyXML::~BabyXML()
-{
-
-}
-
-void
-BabyXML::add_node(const Node& node)
-{
-  m_nodes.push_back(node);
+  Reader parser(text);
+  return parser.parse();
 }
 
 } // namespace babyxml

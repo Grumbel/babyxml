@@ -4,15 +4,19 @@
 
 namespace babyxml {
 
-Reader::Reader(BabyXML& xml_, const std::string& text_) :
-  m_xml(xml_),
-  m_text(text_),
+Reader::Reader(std::string_view text) :
+  m_text(text),
+  m_nodes(),
   m_cursor(0),
   m_line_no(0),
   m_column_no(0)
 {
-  std::string content;
+}
 
+std::vector<Node>
+Reader::parse()
+{
+  std::string content;
   while(!eof())
   {
     char c = look_ahead();
@@ -21,7 +25,7 @@ Reader::Reader(BabyXML& xml_, const std::string& text_) :
       case '<':
         if (!content.empty())
         {
-          m_xml.add_node(Node{NodeType::TEXT, content});
+          m_nodes.push_back({NodeType::TEXT, content});
           content = "";
         }
         read_element();
@@ -38,8 +42,11 @@ Reader::Reader(BabyXML& xml_, const std::string& text_) :
     }
   }
 
-  if (!content.empty())
-    m_xml.add_node(Node{NodeType::TEXT, content});
+  if (!content.empty()) {
+    m_nodes.push_back({NodeType::TEXT, content});
+  }
+
+  return std::move(m_nodes);
 }
 
 void
@@ -95,7 +102,7 @@ Reader::read_element()
   skip_space();
   read_char('>');
 
-  m_xml.add_node(node);
+  m_nodes.push_back(std::move(node));
 }
 
 /** Read a string of the form: '"your string"' */

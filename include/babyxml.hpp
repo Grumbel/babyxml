@@ -21,6 +21,7 @@
 
 #include <span>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace babyxml {
@@ -47,26 +48,7 @@ struct Node
   std::vector<Attribute> attributes = {};
 };
 
-/** Parser for a flat XML-like tag soup, it doesn't support recursive
-    structures */
-class BabyXML
-{
-public:
-  /** Parse the given \a text and construct the nodes from it */
-  BabyXML(const std::string& text);
-  ~BabyXML();
-
-  void add_node(const Node& node);
-
-  std::vector<Node> const& get_root() const { return m_nodes; }
-
-private:
-  std::vector<Node> m_nodes;
-
-public:
-  BabyXML(const BabyXML&) = delete;
-  BabyXML& operator=(const BabyXML&) = delete;
-};
+std::vector<Node> parse(std::string_view text);
 
 } // namespace babyxml
 
