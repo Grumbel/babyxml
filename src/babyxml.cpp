@@ -19,7 +19,7 @@
 #include <sstream>
 #include <stdexcept>
 
-#include "util/baby_xml.hpp"
+#include "babyxml.hpp"
 
 class BabyXMLReader
 {

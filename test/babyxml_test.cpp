@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "util/baby_xml.hpp"
+#include "babyxml.hpp"
 
 int main(int argc, char** argv)
 {
