@@ -1,5 +1,5 @@
 # babyxml - tiny parser for XML-like dialect
-# Copyright (C) 2020 Ingo Ruhnke <grumbel@gmail.com>
+# Copyright (C) 2009-2020 Ingo Ruhnke <grumbel@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
