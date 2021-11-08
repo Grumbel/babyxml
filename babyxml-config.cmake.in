@@ -1,0 +1,7 @@
+get_filename_component(BABYXML_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+if(NOT TARGET babyxml)
+  include("${BABYXML_CMAKE_DIR}/babyxml-targets.cmake")
+endif()
+
+# EOF #

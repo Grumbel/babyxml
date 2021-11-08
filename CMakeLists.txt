@@ -27,8 +27,10 @@ include(MaximumWarnings)
 add_library(babyxml STATIC
   src/babyxml.cpp
   src/reader.cpp)
-target_include_directories(babyxml PUBLIC include/)
-target_include_directories(babyxml PRIVATE src/)
+target_include_directories(babyxml PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
 target_compile_options(babyxml PRIVATE ${WARNINGS_CXX_FLAGS})
 set_target_properties(babyxml PROPERTIES
   PUBLIC_HEADER "include/babyxml.hpp")
@@ -38,8 +40,21 @@ set_target_properties(babyxml PROPERTIES
   CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS babyxml
+  EXPORT babyxml-targets
   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+
+# CMake integration
+configure_file(babyxml-config.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/babyxml-config.cmake" @ONLY)
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/babyxml-config.cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/babyxml/")
+export(TARGETS babyxml
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/babyxml-targets.cmake")
+export(PACKAGE babyxml)
+install(EXPORT babyxml-targets
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/babyxml/")
 
 if(BUILD_TESTS)
   add_executable(babyxml_test test/babyxml_test.cpp)
