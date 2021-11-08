@@ -17,7 +17,10 @@
 cmake_minimum_required(VERSION 3.6)
 project(babyxml VERSION 0.0.0)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules)
+set(TINYCMMC_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules/modules/")
+find_package(tinycmmc CONFIG)
+message(STATUS "tinycmmc module path: ${TINYCMMC_MODULE_PATH}")
+list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
 
 include(MaximumWarnings)
 
@@ -28,9 +31,15 @@ target_include_directories(babyxml PUBLIC include/)
 target_include_directories(babyxml PRIVATE src/)
 target_compile_options(babyxml PRIVATE ${WARNINGS_CXX_FLAGS})
 set_target_properties(babyxml PROPERTIES
+  PUBLIC_HEADER "include/babyxml.hpp")
+set_target_properties(babyxml PROPERTIES
   CXX_STANDARD 20
   CXX_EXTENSIONS OFF
   CXX_STANDARD_REQUIRED ON)
+
+install(TARGETS babyxml
+  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+  PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 if(BUILD_TESTS)
   add_executable(babyxml_test test/babyxml_test.cpp)
