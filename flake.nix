@@ -21,7 +21,7 @@
             src = nixpkgs.lib.cleanSource ./.;
 
             nativeBuildInputs = [
-              pkgs.cmake
+              pkgs.buildPackages.cmake
             ];
 
             buildInputs = [
