@@ -17,12 +17,7 @@
 cmake_minimum_required(VERSION 3.6)
 project(babyxml VERSION 0.0.0)
 
-set(TINYCMMC_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/external/tinycmmc/modules/")
-find_package(tinycmmc CONFIG)
-message(STATUS "tinycmmc module path: ${TINYCMMC_MODULE_PATH}")
-list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
-
-include(MaximumWarnings)
+include(mk/cmake/TinyCMMC.cmake)
 
 add_library(babyxml STATIC
   src/babyxml.cpp
@@ -30,24 +25,16 @@ add_library(babyxml STATIC
 target_include_directories(babyxml PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_options(babyxml PRIVATE ${WARNINGS_CXX_FLAGS})
+target_compile_options(babyxml PRIVATE ${TINYCMMC_WARNINGS_CXX_FLAGS})
 set_target_properties(babyxml PROPERTIES
   PUBLIC_HEADER "include/babyxml.hpp")
-set_target_properties(babyxml PROPERTIES
-  CXX_STANDARD 20
-  CXX_EXTENSIONS OFF
-  CXX_STANDARD_REQUIRED ON)
 
 if(BUILD_TESTS)
   add_executable(babyxml_test test/babyxml_test.cpp)
   target_link_libraries(babyxml_test PRIVATE babyxml)
-  target_compile_options(babyxml_test PRIVATE ${WARNINGS_CXX_FLAGS})
-  set_target_properties(babyxml_test PROPERTIES
-    CXX_STANDARD 20
-    CXX_EXTENSIONS OFF
-    CXX_STANDARD_REQUIRED ON)
+  target_compile_options(babyxml_test PRIVATE ${TINYCMMC_WARNINGS_CXX_FLAGS})
 endif()
 
-include(ExportAndInstallLibrary)
+tinycmmc_export_and_install_library(babyxml)
 
 # EOF #
