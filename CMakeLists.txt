@@ -29,10 +29,13 @@ target_compile_options(babyxml PRIVATE ${TINYCMMC_WARNINGS_CXX_FLAGS})
 set_target_properties(babyxml PROPERTIES
   PUBLIC_HEADER "include/babyxml.hpp")
 
-if(BUILD_TESTS)
-  add_executable(babyxml_test test/babyxml_test.cpp)
-  target_link_libraries(babyxml_test PRIVATE babyxml)
-  target_compile_options(babyxml_test PRIVATE ${TINYCMMC_WARNINGS_CXX_FLAGS})
+if(BUILD_EXTRA)
+  add_executable(babyxml_exe extra/babyxml.cpp)
+  set_target_properties(babyxml_exe PROPERTIES OUTPUT_NAME "babyxml")
+  target_link_libraries(babyxml_exe PRIVATE babyxml)
+  target_compile_options(babyxml_exe PRIVATE ${TINYCMMC_WARNINGS_CXX_FLAGS})
+  install(TARGETS babyxml_exe
+    RUNTIME DESTINATION ${CMAKE_INSTALL_FULL_BINDIR})
 endif()
 
 tinycmmc_export_and_install_library(babyxml)
