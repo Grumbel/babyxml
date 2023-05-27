@@ -2,7 +2,7 @@
   description = "A C++ parser for a minimal XML-like dialect";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     tinycmmc.url = "github:grumbel/tinycmmc";
     tinycmmc.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,10 +18,14 @@
             pname = "babyxml";
             version = "0.0.0";
 
-            src = nixpkgs.lib.cleanSource ./.;
+            src = ./.;
 
-            nativeBuildInputs = [
-              pkgs.buildPackages.cmake
+            cmakeFlags = [
+              "-DBUILD_EXTRA=ON"
+            ];
+
+            nativeBuildInputs = with pkgs; [
+              buildPackages.cmake
             ];
 
             buildInputs = [
