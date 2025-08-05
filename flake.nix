@@ -2,7 +2,7 @@
   description = "A C++ parser for a minimal XML-like dialect";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
     tinycmmc.url = "github:grumbel/tinycmmc";
     tinycmmc.inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +29,7 @@
             ];
 
             buildInputs = [
-              tinycmmc.packages.${pkgs.system}.default
+              tinycmmc.packages.${pkgs.stdenv.hostPlatform.system}.default
             ];
            };
         };
