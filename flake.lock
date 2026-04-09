@@ -65,15 +65,15 @@
       "locked": {
         "lastModified": 1763256011,
         "narHash": "sha256-CpQWAHdeLUYd28cT9heG05p6RX9WF7QslqNHoBi931E=",
-        "owner": "grumbel",
-        "repo": "tinycmmc",
+        "ref": "refs/heads/master",
         "rev": "2e007ba059a4991c011a7193c9d7df28826c9adc",
-        "type": "github"
+        "revCount": 64,
+        "type": "git",
+        "url": "https://github.com/grumbel/tinycmmc.git"
       },
       "original": {
-        "owner": "grumbel",
-        "repo": "tinycmmc",
-        "type": "github"
+        "type": "git",
+        "url": "https://github.com/grumbel/tinycmmc.git"
       }
     }
   },
